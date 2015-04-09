@@ -24,8 +24,8 @@ module MasterSlave
       @quiet = !!value
     end
 
-    def setup!
-      MasterSlave::ConnectionHandler.setup_connection
+    def setup!(load_version = nil)
+      MasterSlave::ConnectionHandler.setup_connection(load_version)
     end
   end
 end

@@ -14,11 +14,14 @@ module MasterSlave
         "master_slave_#{slave_name.to_s.strip}"
       end
 
-      def setup_connection
+      def setup_connection(load_version = nil)
         ActiveRecord::Base.slave_connection_names ||= []
+
         MasterSlave.config.slave_names.each do |slave_name|
           slave_name = slave_name.to_s.strip
-          if !ActiveRecord::Base.slave_connection_names.include? slave_name
+          slave_name = "#{slave_name}_#{load_version}" if load_version
+
+          if !ActiveRecord::Base.slave_connection_names.include?(slave_name)
             ActiveRecord::Base.slave_connection_names << slave_name
           end
 
