@@ -19,14 +19,15 @@ module MasterSlave
 
         MasterSlave.config.slave_names.each do |slave_name|
           slave_name = slave_name.to_s.strip
+          slave_config = MasterSlave.config.slave_config(slave_name)
           slave_name = "#{slave_name}_#{load_version}" if load_version
 
           if !ActiveRecord::Base.slave_connection_names.include?(slave_name)
             ActiveRecord::Base.slave_connection_names << slave_name
           end
 
-          slave_config = MasterSlave.config.slave_config(slave_name)
-          slave_config[:database] = "#{slave_config[:database]}_#{load_version}" if load_version
+          puts load_version
+          slave_config[:database] = "#{slave_config['database']}_#{load_version}" if load_version
           puts slave_config
 
           spec = { Rails.env => slave_config }
