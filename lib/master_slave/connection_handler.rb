@@ -27,7 +27,8 @@ module MasterSlave
           end
 
           puts load_version
-          slave_config[:database] = "#{slave_config['database']}_#{load_version}" if load_version
+          puts slave_config['database']
+          slave_config['database'] = "#{slave_config['database']}_#{load_version}" if load_version
           puts slave_config
 
           spec = { Rails.env => slave_config }
