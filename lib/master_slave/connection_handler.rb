@@ -25,7 +25,9 @@ module MasterSlave
             ActiveRecord::Base.slave_connection_names << slave_name
           end
 
-          spec = { Rails.env => MasterSlave.config.slave_config(slave_name) }
+          slave_config = MasterSlave.config.slave_config(slave_name)
+          puts slave_config
+          spec = { Rails.env =>  slave_config }
           resolver = ActiveRecord::ConnectionAdapters::ConnectionSpecification::Resolver.new spec
           spec = resolver.spec(Rails.env.to_sym)
 
