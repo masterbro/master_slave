@@ -25,7 +25,8 @@ module MasterSlave
           if load_version && !slave_config['database'].end_with?(load_version.to_s)
             puts load_version
             puts slave_config['database']
-            slave_config['database'] = "#{slave_config['database']}_#{load_version}"
+            db = "#{slave_config['database'].gsub(/\d+/, "")}_#{load_version}" 
+            slave_config['database'] = db.gsub("__", "_")
             puts slave_config
           end
 
