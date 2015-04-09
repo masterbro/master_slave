@@ -26,10 +26,10 @@ module MasterSlave
             ActiveRecord::Base.slave_connection_names << slave_name
           end
 
-          puts load_version
-          puts slave_config['database']
+          #puts load_version
+          #puts slave_config['database']
           slave_config['database'] = "#{slave_config['database']}_#{load_version}" if load_version
-          puts slave_config
+          #puts slave_config
 
           spec = { Rails.env => slave_config }
           resolver = ActiveRecord::ConnectionAdapters::ConnectionSpecification::Resolver.new spec
