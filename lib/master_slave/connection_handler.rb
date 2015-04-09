@@ -26,8 +26,10 @@ module MasterSlave
           end
 
           slave_config = MasterSlave.config.slave_config(slave_name)
+          slave_config[:database] = "#{slave_config[:database]}_#{load_version}" if load_version
           puts slave_config
-          spec = { Rails.env =>  slave_config }
+
+          spec = { Rails.env => slave_config }
           resolver = ActiveRecord::ConnectionAdapters::ConnectionSpecification::Resolver.new spec
           spec = resolver.spec(Rails.env.to_sym)
 
