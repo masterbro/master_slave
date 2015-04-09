@@ -22,7 +22,7 @@ module MasterSlave
           slave_config = MasterSlave.config.slave_config(slave_name)
           slave_name = "#{slave_name}_#{load_version}"
 
-          if load_version && !slave_config['database'].end_with?(load_version)
+          if load_version && !slave_config['database'].end_with?(load_version.to_s)
             puts load_version
             puts slave_config['database']
             slave_config['database'] = "#{slave_config['database']}_#{load_version}"
