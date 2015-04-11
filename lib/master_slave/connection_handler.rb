@@ -24,12 +24,12 @@ module MasterSlave
 
           if load_version && !slave_config['database'].end_with?(load_version.to_s)
             db = "#{slave_config['database']}"
-            db = db.gsub(/\d+/, "")}
+            db = db.gsub(/\d+/, "")
             db = db + "_#{load_version}"
             db = db.gsub("__", "_")
 
             unless MasterSlave.quiet
-              puts "\033[32mload_version = #{load_version}, spec=#{db}\033[0m"
+              puts "\033[32mload_version = #{load_version}, spec = #{db}\033[0m"
             end
 
             slave_config['database'] = db
