@@ -23,11 +23,16 @@ module MasterSlave
           slave_name = "#{slave_name}_#{load_version}"
 
           if load_version && !slave_config['database'].end_with?(load_version.to_s)
-            puts load_version
-            puts slave_config['database']
-            db = "#{slave_config['database'].gsub(/\d+/, "")}_#{load_version}" 
-            slave_config['database'] = db.gsub("__", "_")
-            puts slave_config
+            db = "#{slave_config['database']}"
+            db = db.gsub(/\d+/, "")}
+            db = db + "_#{load_version}"
+            db = db.gsub("__", "_")
+
+            unless MasterSlave.quiet
+              puts "\033[32mload_version = #{load_version}, spec=#{db}\033[0m"
+            end
+
+            slave_config['database'] = db
           end
 
           if !ActiveRecord::Base.slave_connection_names.include?(slave_name)
